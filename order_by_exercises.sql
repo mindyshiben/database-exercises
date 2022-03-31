@@ -17,7 +17,6 @@ ORDER BY first_name ASC;
 -- 		last row of results - Vidya Simmen
 
 
-
 -- Find all employees with first names 'Irena', 'Vidya', or 'Maya', and order your results returned by first name and then last name. 
 -- In your comments, answer: What was the first and last name in the first row of the results? 
 -- What was the first and last name of the last person in the table?
@@ -33,7 +32,6 @@ ORDER BY (first_name) , last_name;
 -- Answer: first row- Irena Acton, last row- Vidya Zweizig
 
 
-
 -- Find all employees with first names 'Irena', 'Vidya', or 'Maya', and order your results returned by last name and then first name. 
 -- In your comments, answer: What was the first and last name in the first row of the results? 
 -- What was the first and last name of the last person in the table?
@@ -47,7 +45,6 @@ WHERE
 ORDER BY (last_name) , first_name;
 
 -- Answer: first row- Irena Acton, last row- Maya Zyda
-
 
 
 -- Write a query to to find all employees whose last name starts and ends with 'E'. 
@@ -66,7 +63,6 @@ WHERE
 -- Answer: 899 employees, first employee number/name- 10021/Ramzi Erde,  last employee number/name- 499648/Tadahiro Erde
 
 
-
 -- Write a query to to find all employees whose last name starts and ends with 'E'. 
 -- Sort the results by their hire date, so that the newest employees are listed first. 
 -- Enter a comment with the number of employees returned, the name of the newest employee, and the name of the oldest employee.
@@ -81,7 +77,6 @@ WHERE
 ORDER BY hire_date DESC;
         
 -- Answer- 899 employees, newest employee- Teiji Eldridge, oldest employee- Sergi Erde
-
 
 
 -- Find all employees hired in the 90s and born on Christmas. 
