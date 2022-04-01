@@ -149,9 +149,11 @@ FROM
 -- Find the smallest and largest current salary from the salaries table.
 
 SELECT 
-    MIN(salary),MAX(salary)
+    MIN(salary), MAX(salary)
 FROM
-    salaries;
+    salaries
+WHERE
+    to_date > NOW();
 
 -- Answer: smallest salary- 38,623 , largest salary- 158,220
 
@@ -170,9 +172,6 @@ FROM
     employees; 
 
 -- Answer- this code works to generate usernames with specifications asked for in exercise
-
-
-
 
 
 
