@@ -109,31 +109,18 @@ GROUP BY gender;
 -- Are there any duplicate usernames? BONUS: How many duplicate usernames are there?
 
 SELECT 
-    first_name, last_name, COUNT(LOWER(CONCAT(SUBSTR(first_name, 1, 1),
+    (LOWER(CONCAT(SUBSTR(first_name, 1, 1),
                     SUBSTR(last_name, 1, 4),
                     '_',
                     SUBSTR(birth_date, 6, 2),
-                    SUBSTR(birth_date, 3, 2)))) AS user_name
+                    SUBSTR(birth_date, 3, 2)))) AS user_name,
+    COUNT(*) AS count_of_users
 FROM
     employees
-GROUP BY first_name, last_name; 
-
--- Answer- 279,408 unique usernames
-
-
-SELECT 
-    first_name, last_name, COUNT(LOWER(CONCAT(SUBSTR(first_name, 1, 1),
-                    SUBSTR(last_name, 1, 4),
-                    '_',
-                    SUBSTR(birth_date, 6, 2),
-                    SUBSTR(birth_date, 3, 2)))) AS user_name
-FROM
-    employees
-GROUP BY emp_no; 
-
-SELECT 300024 - 279408;
-
--- Answer- There are 20,616 duplicate usernames.
+GROUP BY user_name
+HAVING count_of_users > 1;
+    
+-- Answer- There are 13,251 duplicate usernames.
 
                     
 -- More practice with aggregate functions:
@@ -200,7 +187,9 @@ FROM
     employees USING (emp_no)
 GROUP BY (emp_no);
     
+    
 -- Find the standard deviation of salaries for each employee.
+
 SELECT 
     emp_no, STDDEV(salary), first_name, last_name
 FROM
