@@ -14,7 +14,7 @@ WHERE
 ORDER BY first_name ASC;
 
 -- Answer: first row of results - Irena Reutenauer
--- 		last row of results - Vidya Simmen
+-- 		   last row of results - Vidya Simmen
 
 
 -- Find all employees with first names 'Irena', 'Vidya', or 'Maya', and order your results returned by first name and then last name. 
