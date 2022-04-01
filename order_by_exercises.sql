@@ -3,6 +3,7 @@
 -- In your comments, answer: What was the first and last name in the first row of the results? 
 -- What was the first and last name of the last person in the table?
 
+
 USE employees;
 
 SELECT 
