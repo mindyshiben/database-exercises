@@ -1,3 +1,4 @@
+
 USE albums_db;
 
 SELECT 
@@ -125,7 +126,7 @@ FROM
     albums
 WHERE
     genre = "Rock";
-    
+
 -- answer:
 -- 'Sgt. Pepper\'s Lonely Hearts Club Band'
 -- '1'
