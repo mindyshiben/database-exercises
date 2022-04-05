@@ -36,15 +36,19 @@ WHERE
 
 -- Find all the titles ever held by all current employees with the first name Aamod.
 
-SELECT *
-FROM employees where first_name = 'Aamod';
-
 SELECT 
-    emp_no, title, first_name, last_name
+    *
 FROM
     employees
+WHERE
+    first_name = 'Aamod';
+
+SELECT 
+    title
+FROM
+    titles
         JOIN
-    titles USING (emp_no)
+    employees USING (emp_no)
         JOIN
     dept_emp USING (emp_no)
 WHERE
@@ -54,9 +58,11 @@ WHERE
             employees
         WHERE
             first_name = 'Aamod')
-        AND dept_emp.to_date > CURDATE();
+        AND dept_emp.to_date > CURDATE()
+GROUP BY title;
 
--- answer: 251 results
+
+-- answer: 6 results
 
 
 -- How many people in the employees table are no longer working for the company? Give the answer in a comment in your code.
@@ -110,7 +116,7 @@ WHERE
 
 
 -- Find all the employees who currently have a higher salary than the companies overall, historical average salary.
-
+USE employees;
 SELECT 
     AVG(salary)
 FROM
@@ -119,9 +125,9 @@ FROM
 SELECT 
     first_name, last_name, salary
 FROM
-    employees
+    employees e
         JOIN
-    salaries USING (emp_no)
+    salaries s USING (emp_no)
 WHERE
     salary > (SELECT 
             AVG(salary)
@@ -142,15 +148,14 @@ ORDER BY salary;
 SELECT 
     MAX(salary) - STDDEV(salary)
 FROM
-    salaries;
-
+    salaries s;
 
 SELECT 
     COUNT(*)
 FROM
-    salaries
+    salaries s
 WHERE
-    to_date > CURDATE();
+    s.to_date > CURDATE();
 
 
 SELECT 
@@ -158,9 +163,9 @@ SELECT
     COUNT(*) / (SELECT 
             COUNT(*)
         FROM
-            salaries
+            salaries s
         WHERE
-            to_date > CURDATE()) * 100
+            s.to_date > CURDATE()) * 100 as percentage
 FROM
     salaries
 WHERE
@@ -168,9 +173,9 @@ WHERE
         AND salary > (SELECT 
             MAX(salary) - STDDEV(salary)
         FROM
-            salaries
+            salaries s
         WHERE
-            salaries.to_date > CURDATE());
+            s.to_date > CURDATE());
 
 -- answer: 83 current salaries, 3.5% of current salaries
 
