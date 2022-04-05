@@ -146,7 +146,8 @@ GROUP BY dept_name;
 -- Which department has the highest average salary? Hint: Use current not historic information.
 
 SELECT 
-    employees.departments.dept_name, AVG(salaries.salary)
+    employees.departments.dept_name,
+    ROUND(AVG(salaries.salary), 2)
 FROM
     employees.dept_emp
         JOIN
@@ -157,7 +158,8 @@ WHERE
     dept_emp.to_date = '9999-01-01'
         AND salaries.to_date = '9999-01-01'
 GROUP BY dept_name
-ORDER BY AVG(salaries.salary) DESC;
+ORDER BY AVG(salaries.salary) DESC
+LIMIT 1;
 
 
 -- Who is the highest paid employee in the Marketing department?
@@ -182,7 +184,8 @@ WHERE
 GROUP BY CONCAT(employees.first_name,
         ' ',
         employees.last_name)
-ORDER BY MAX(salaries.salary) DESC; 
+ORDER BY MAX(salaries.salary) DESC
+LIMIT 1;
 
 -- Which current department manager has the highest salary?
 
@@ -206,7 +209,8 @@ WHERE
 GROUP BY departments.dept_name , CONCAT(employees.first_name,
         ' ',
         employees.last_name)
-ORDER BY MAX(salaries.salary) DESC;
+ORDER BY MAX(salaries.salary) DESC
+LIMIT 1;
 
 
  
@@ -215,7 +219,7 @@ ORDER BY MAX(salaries.salary) DESC;
 SELECT 
     departments.dept_name,
     departments.dept_no,
-    AVG(salaries.salary)
+    ROUND(AVG(salaries.salary), 0)
 FROM
     employees.dept_emp
         JOIN

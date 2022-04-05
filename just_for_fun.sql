@@ -69,9 +69,12 @@ FROM roles;
 SELECT *
 from users;
 
-SELECT u.name, u.email, r.name as 'role_name'
-FROM users as u
-RIGHT JOIN roles as r on u.role_id = r.id;
+SELECT 
+    u.name, u.email, r.name AS 'role_name'
+FROM
+    users AS u
+        RIGHT JOIN
+    roles AS r ON u.role_id = r.id;
 
 USE employees;
 
@@ -89,3 +92,31 @@ join dept_emp as de
 on de.emp_no = e.emp_no
 join departments as d
 on d.dept_no = de.dept_no;
+
+USE employees;
+
+select avg(salary) from salaries;
+
+-- Using sub-query example
+
+select * from salaries
+join employees using (emp_no)
+where salary > (select avg(salary) from salaries)
+and salaries.to_date > now();
+
+-- all department managers name and DOB
+
+SELECT emp_no from dept_manager where to_date > now();
+
+SELECT first_name, last_name, birth_date
+from employees 
+where emp_no IN (SELECT emp_no from dept_manager where to_date > now());
+
+select * from employees where first_name like 'geor%';
+
+select table1.first_name, table1.last_name, salary
+ from (select * from employees where first_name like 'geor%') as table1
+join salaries using (emp_no);
+
+
+
