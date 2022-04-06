@@ -50,7 +50,7 @@ FROM payment;
 
 DESCRIBE payment;
 
-CREATE TEMPORARY TABLE jemison_1748.payment_data(payment_id smallint unsigned, customer_id smallint unsigned, 
+CREATE TEMPORARY TABLE jemison_1748.payment_data (payment_id smallint unsigned, customer_id smallint unsigned, 
 	staff_id tinyint unsigned, rental_ID INT, amount decimal(5,2), payment_date datetime, last_update timestamp);
     
 SELECT *
@@ -67,7 +67,7 @@ DESCRIBE jemison_1748.payment_data;
 
 USE employees;
 
-CREATE TEMPORARY TABLE jemison_1748.salary_data AS SELECT AVG(salary), dept_name
+CREATE TEMPORARY TABLE jemison_1748.T1_salary_data AS SELECT AVG(salary) as A_dept_salary, dept_name
 FROM salaries s
 join dept_emp using(emp_no)
 join departments using(dept_no)
@@ -75,7 +75,48 @@ where s.to_date > curdate()
 group by dept_name;
 
 SELECT *
-FROM jemison_1748.salary_data;
+FROM jemison_1748.T1_salary_data;
+
+ALTER TABLE jemison_1748.T1_salary_data add average_salary decimal(10,5);
+
+SELECT *
+FROM jemison_1748.T1_salary_data;
+
+UPDATE jemison_1748.T1_salary_data 
+SET average_salary = (SELECT AVG(salary) 
+from salaries); 
+
+SELECT *
+FROM jemison_1748.T1_salary_data ;
+
+CREATE TEMPORARY TABLE jemison_1748.T2_salary_data AS SELECT *
+from jemison_1748.T1_salary_data;
+
+
+ALTER TABLE jemison_1748.T2_salary_data
+ADD z_score decimal (5,5); 
+
+SELECT STDDEV(salary)
+from salaries;
+
+ALTER TABLE jemison_1748.T2_salary_data
+ADD Standard_dev decimal (5,5); 
+
+ALTER TABLE jemison_1748.T2_salary_data
+MODIFY COLUMN Standard_dev decimal (10,5);
+
+UPDATE jemison_1748.T2_salary_data
+set Standard_dev = (SELECT STDDEV(salary)
+from salaries);
+
+ALTER TABLE jemison_1748.T2_salary_data
+MODIFY COLUMN z_score decimal (10,5);
+
+UPDATE jemison_1748.T2_salary_data
+set z_score = (A_dept_salary - average_salary) / Standard_dev;
+
+SELECT * 
+from jemison_1748.T2_salary_data;
 
 -- answer: sales is best department, HR is worst in terms of current salary data 
 
