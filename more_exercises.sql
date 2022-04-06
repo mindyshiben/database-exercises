@@ -172,4 +172,39 @@ WHERE
     payment_date BETWEEN '2005-05-25%' AND '2005-05-25 23:59:59'
 ORDER BY payment_date ASC;
 
--- Select the film_id, title, and descrition columns from the film table for films where the length of the description is between 100 and 120
+-- Select the film_id, title, and descrition columns from the film table for films where the 
+-- length of the description is between 100 and 120
+
+SELECT 
+    film_id, title, description
+FROM
+    film
+WHERE
+    LENGTH(description) BETWEEN 100 AND 120;
+    
+    
+    
+-- LIKE operator
+
+-- Select the following columns from the film table for rows where the description begins with "A Thoughtful"
+
+SELECT 
+    *
+FROM
+    film
+WHERE
+    description LIKE 'A Thoughtful%'; 
+
+-- Select the following columns from the film table for rows where the description ends with the word "Boat".
+
+
+-- Select the following columns from the film table where the description contains the word "Database" and the length of the film is greater than 3 hours.
+-- LIMIT Operator
+
+-- Select all columns from the payment table and only include the first 20 rows.
+-- Select the payment date and amount columns from the payment table for rows where the payment amount is greater than 5, and only select rows whose zero-based index in the result set is between 1000-2000.
+-- Select all columns from the customer table, limiting results to those where the zero-based index is between 101-200.
+
+
+
+
