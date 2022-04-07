@@ -274,18 +274,24 @@ ORDER BY E_name;
 -- WHERE L1.Salary > L2.Salary 
 -- AND L1.Department = L2.Department
 
-SELECT L1.dept_name, CONCAT(L1.first_name, ' ', L1.last_name) as employee_name, L1.salary
-FROM (SELECT dept_name as dep, CONCAT(first_name, ' ', last_name) as employee_name, salary
-from employees join depart
 
-
-SELECT dep.dept_name AS dep, CONCAT(emp1.first_name, ' ', emp1.last_name) AS E_name, emp1.salary as salary
-FROM departments dep
-JOIN employees.dept_emp on dep.dept_no = dept_emp.dept_no
-JOIN employees emp1 on dept_emp.emp_no = emp1.emp_no
-WHERE emp1.salary = (SELECT MAX(salary) from employees emp2 WHERE emp2.emp_no = emp1.emp_no)
+SELECT 
+    dep.dept_name AS dep,
+    CONCAT(emp1.first_name, ' ', emp1.last_name) AS E_name,
+    emp1.salary AS salary
+FROM
+    departments dep
+        JOIN
+    employees.dept_emp ON dep.dept_no = dept_emp.dept_no
+        JOIN
+    employees emp1 ON dept_emp.emp_no = emp1.emp_no
+WHERE
+    emp1.salary = (SELECT 
+            MAX(salary)
+        FROM
+            employees emp2
+        WHERE
+            emp2.emp_no = emp1.emp_no)
 GROUP BY dep.dept_name;
 
 
-
-JOIN employees.departments on dept_emp.dept_no = departments.dept_no
